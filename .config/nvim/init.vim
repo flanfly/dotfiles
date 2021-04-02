@@ -4,8 +4,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neovim/nvim-lspconfig'
 
-" --- FZF ---
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+" --- FZF and ripgrep ---
+Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " --- Statusline ---
@@ -21,13 +22,19 @@ Plug 'mattn/vim-gist'
 " --- Language Ext. ---
 Plug 'rust-lang/rust.vim'
 Plug 'hashivim/vim-terraform'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'ledger/vim-ledger'
 Plug 'towolf/vim-helm'
+Plug 'lervag/vimtex'
+Plug 'vim-scripts/dbext.vim'
 
 " TSX highlighting, tsserver is handled by CoC
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+
+" --- Snippets ---
+Plug 'honza/vim-snippets'
+Plug 'andrewstuart/vim-kubernetes'
 
 " --- Misc ---
 Plug 'tpope/vim-surround'
@@ -57,8 +64,10 @@ set mouse=a
 
 tnoremap <C-Esc> <C-\><C-n>
 nnoremap <C-p> :History<Cr>
+" OSX
+nnoremap <A-p> :History<Cr>
 
-colorscheme desert256
+colorscheme thar
 
 " Style Pmenu (completition popup)
 hi Pmenu guibg=grey30 ctermbg=242
@@ -110,5 +119,14 @@ let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_
 " Rust.vim
 let g:rustfmt_autosave_if_config_present = 1
 
-" TSX
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" Typescript/TSX
+autocmd BufNewFile,BufRead *.tsx,*.jsx, set filetype=typescript.tsx
+
+" Ripgrep.vim
+let g:rg_highlight = 1
+let g:rg_derive_root = 1
+let g:rg_root_types = ['.git', 'package.json', 'Cargo.toml']
+let g:rg_binary = '/usr/local/bin/rg'
+
+" Vimtex
+let g:tex_flavor = 'latex'

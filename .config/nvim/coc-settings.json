@@ -17,13 +17,15 @@
       "filetypes": ["go"]
     }
   },
-  "suggest.noselect": false,
-  "diagnostic.virtualText": true,
-  "suggest.echodocSupport": true,
-
   "typescript": {
     "format": {
       "insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
     }
-  }
+  },
+
+  "suggest.noselect": false,
+  "diagnostic.virtualText": true,
+  "suggest.echodocSupport": true,
+  "solargraph.diagnostics": false,
+  "jest.watch": false
 }
