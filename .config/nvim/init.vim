@@ -92,6 +92,7 @@ endif
 " Coc
 set shortmess+=c
 set updatetime=300
+let g:coc_global_extensions = [ 'coc-css', 'coc-go', 'coc-highlight', 'coc-html', 'coc-inline-jest', 'coc-json', 'coc-pyls', 'coc-rls', 'coc-snippets', 'coc-solargraph', 'coc-sql', 'coc-swagger', 'coc-tsserver', 'coc-vimtex', 'coc-yaml' ]
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
