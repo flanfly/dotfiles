@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd ~/.dotfiles
+stow --dotfiles --target "$HOME" --restow .
+cd - > /dev/null
