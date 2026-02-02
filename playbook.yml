@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: yes
+  
+  vars:
+    packages:
+      - stow
+      - kitty
+      - git
+      - tmux
+      - bash
+      - gh
+      - fzf
+    ssh_key_path: "~/.ssh/id_ed25519"
+    github_user: "flanfly"
+
+  tasks:
+    # install required packages
+    - become: yes
+      package:
+        name: "{{ sys_packages }}"
+        state: present
+      when: ansible_facts['os_family'] != "Darwin"
+    - homebrew:
+        name: "{{ sys_packages }}"
+        state: present
+      when: ansible_facts['os_family'] == "Darwin"
+  
+    # setup github access
+    - openssh_keypair:
+        path: "{{ ssh_key_path }}"
+        type: ed25519
+        state: present
+        comment: "{{ github_user }}@{{ ansible_hostname }}"
+      register: ssh_key_info
+    - command: gh auth login
+    - command: >
+        gh ssh-key add {{ ssh_key_path }}.pub 
+        --title "Ansible-Generated-{{ ansible_hostname }}"
+      register: gh_ssh_result
+      failed_when: 
+        - gh_ssh_result.rc != 0 
+        - "'key already exists' not in gh_ssh_result.stderr"
+      changed_when: "'key already exists' not in gh_ssh_result.stderr"
