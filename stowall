@@ -3,5 +3,5 @@
 set -euo pipefail
 
 cd ~/.dotfiles
-stow --dotfiles --target "$HOME" --restow .
+stow --dotfiles --no-folding --target "$HOME" --restow -n .
 cd - > /dev/null
