@@ -1,0 +1,9 @@
+[user]
+  name = Kai
+  email = seu@das-labor.org
+
+[pull]
+  ff = only
+
+[push]
+  autoSetupRemote = true
