@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-sudo apt install git kitty tmux git build-essential unzip htop tig stow libclang-dev fzf ripgrep fd-find gh git-crypt docker.io
+sudo apt install git kitty tmux git build-essential unzip htop tig stow libclang-dev fzf ripgrep fd-find gh git-crypt
 
 if ! command -v uv; then
 	curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -16,7 +16,7 @@ if ! command -v nvm; then
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 	nvm install stable
 	npm install -g mcp-hub --prefix ~/.local
-	npm install -g gemini-cli --prefix ~/.local
+	npm install -g @google/gemini-cli --prefix ~/.local
 fi
 
 if ! command -v cargo; then
