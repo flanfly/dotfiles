@@ -1,9 +1,19 @@
+# This is Git's per-user configuration file.
+[core]
+	ignorecase = false
 [user]
-  name = Kai
-  email = seu@das-labor.org
-
+	name = Kai
+	email = seu@das-labor.org
 [pull]
-  ff = only
-
+	ff = only
 [push]
-  autoSetupRemote = true
+	autoSetupRemote = true
+[github]
+	user = flanfly
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = master
