@@ -1,17 +1,49 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install ansible
-elif [ -f /etc/debian_version ]; then
-    sudo apt-get update
-    sudo apt-get install -y software-properties-common ansible git
-elif [ -f /etc/fedora-release ]; then
-    sudo dnf install -y ansible git
-else
-    echo "Unsupported OS."
-    exit 1
+sudo apt install git kitty tmux git build-essential unzip htop tig stow libclang-dev fzf ripgrep fd-find gh git-crypt docker.io
+
+if ! command -v uv; then
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+	source $HOME/.local/bin/env
 fi
 
-ansible-playbook -i "localhost," -c local playbook.yml
+if ! command -v nvm; then
+	wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+	nvm install stable
+	npm install -g mcp-hub --prefix ~/.local
+	npm install -g gemini-cli --prefix ~/.local
+fi
+
+if ! command -v cargo; then
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	. ~/.cargo/env
+	cargo install tree-sitter-cli
+fi
+
+if ! command -v nvim; then
+	wget https://github.com/neovim/neovim/releases/download/v0.11.6/nvim-linux-x86_64.tar.gz -O - | tar zxvf - --strip-components=1 -C ~/.local
+fi
+
+BLOCK='
+export EDITOR=nvim
+export VISUAL=nvim
+'
+FILE_PATH="$HOME/.bashrc"
+
+awk -v start="# dotfiles config start" -v end="# dofiles config end" -v block="$BLOCK" '
+BEGIN { found = 0 }
+$0 ~ start {
+    print start; print block; print end;
+    found = 1;
+    skip = 1;
+    next
+}
+$0 ~ end { skip = 0; next }
+!skip { print }
+END { if (!found) { print ""; print start; print block; print end } }
+' "$FILE_PATH" > "$FILE_PATH.tmp" && mv "$FILE_PATH.tmp" "$FILE_PATH"
