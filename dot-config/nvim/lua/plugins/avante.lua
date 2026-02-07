@@ -3,6 +3,8 @@ if os.getenv("AVANTE_OPENAI_API_KEY") then
   provider = "openai"
 elseif os.getenv("OPENAI_API_KEY") then
   provider = "openai"
+else
+  provider = "gemini-acp"
 end
 
 return {
@@ -15,6 +17,13 @@ return {
     },
     instructions_file = "avante.md",
     provider = provider,
+    acp_providers = {
+      ["gemini-acp"] = {
+        command = "gemini",
+        args = { "--experimental-acp" },
+        model = "gemini-2.0-pro",
+      },
+    },
     providers = {
       openai = {
         model = "gpt-4o-mini",
