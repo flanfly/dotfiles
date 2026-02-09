@@ -15,6 +15,10 @@ return {
     selection = {
       hint_display = "none",
     },
+    windows = {
+      position = "right",
+      width = 50,
+    },
     instructions_file = "avante.md",
     provider = provider,
     acp_providers = {
