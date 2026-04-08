@@ -17,3 +17,7 @@
 	required = true
 [init]
 	defaultBranch = master
+
+# local overrides
+[include]
+  path = .gitconfig.local
