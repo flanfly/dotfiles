@@ -8,7 +8,8 @@ return {
   opts = {
     ensure_installed = "all",
     sync_install = false,
-    ignore_install = { "help", "ipkg" },
+    -- markdown is broken in nvim 0.12.0
+    ignore_install = { "help", "ipkg", "markdown", "markdown_inline" },
 
     highlight = {
       enable = true,
