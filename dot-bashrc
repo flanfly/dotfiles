@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # vim: set ft=bash:
 
 export LANG="en_US.utf-8"
@@ -9,6 +10,12 @@ export LC_NUMERIC="en_US.utf-8"
 export LC_TIME="en_US.utf-8"
 export LC_ALL=
 export PS1="\[\e[1m\]\u@\h \[\e[0m\]\w \$ "
+export HISTCONTROL=ignoredups
+
+alias ls='ls --color=auto'
+
+# make pass -c work
+export PASSWORD_STORE_X_SELECTION=primary
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
